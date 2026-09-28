@@ -1,0 +1,13 @@
+.hero{min-height:670px}
+.release-countdown{width:min(420px,100%);margin-top:24px;padding:15px 17px 13px;background:linear-gradient(115deg,#1b1727e8,#351d39cc);border:1px solid #ff91bf80;box-shadow:0 14px 34px #09070bb0,inset 0 1px #ffffff26;backdrop-filter:blur(10px);position:relative;overflow:hidden}
+.release-countdown:before{content:"";position:absolute;inset:0 0 auto;height:3px;background:linear-gradient(90deg,var(--pink),var(--orange),var(--lime))}
+.countdown-heading{display:flex;justify-content:space-between;gap:12px;align-items:center;color:#f7e6ec;font:900 10px 'Manrope',Arial,sans-serif;letter-spacing:.17em}
+.countdown-heading b{color:var(--lime);font-size:9px;white-space:nowrap}
+.countdown-digits{display:flex;justify-content:space-between;align-items:center;gap:4px;margin:9px 0 5px;font-variant-numeric:tabular-nums}
+.countdown-digits>div{flex:1;min-width:0;text-align:center}
+.countdown-digits strong{display:block;color:#fff7ed;font:900 clamp(27px,3.3vw,43px)/1 'Barlow Condensed',Impact,sans-serif;letter-spacing:.02em;text-shadow:0 2px 13px #ff5b8e88}
+.countdown-digits small{display:block;margin-top:4px;color:#e5b9cf;font:800 8px 'Manrope',Arial,sans-serif;letter-spacing:.1em}
+.countdown-digits>span{align-self:flex-start;padding-top:2px;color:var(--pink);font:900 25px 'Barlow Condensed',sans-serif}
+.countdown-note{display:block;color:#baaab6;font:600 9px/1.35 'Manrope',Arial,sans-serif}
+@media(max-width:760px){.hero{min-height:880px}.hero-copy{padding-bottom:330px}.release-countdown{margin-top:19px;max-width:390px}}
+@media(max-width:430px){.hero{min-height:840px}.hero-copy{padding-bottom:300px}.release-countdown{padding:13px 11px 11px}.countdown-digits strong{font-size:32px}.countdown-note{font-size:8px}}

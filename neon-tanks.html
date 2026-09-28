@@ -26,7 +26,20 @@
   .difficulty{display:flex;gap:8px;margin:21px 0 20px}.difficulty button{flex:1;font-size:11px;font-weight:900;letter-spacing:.06em;padding:11px 3px;color:#aeb0c9;background:#14132e;border:1px solid #3d3556;cursor:pointer}.difficulty button.active{background:rgba(0,240,255,.14);color:#fff;border-color:var(--cyan);box-shadow:inset 0 0 16px rgba(0,240,255,.1),0 0 12px rgba(0,240,255,.25)}
   .primary{width:100%;padding:15px 20px;font-weight:1000;letter-spacing:.2em;color:#180d2e;background:linear-gradient(100deg,var(--orange),var(--pink));border:0;cursor:pointer;box-shadow:0 0 25px rgba(255,45,149,.4);font-size:14px}.primary:hover{filter:brightness(1.16)}
   .small{font-size:11px!important;color:#8d87a7!important;margin:16px 0 0!important}.hide{display:none!important}
-  @media(max-width:650px){.topbar{top:7px;gap:4px}.team{padding:7px 8px}.team .name{font-size:9px;letter-spacing:.07em}.score{min-width:100px}.score .brand{font-size:10px}.score .digits{font-size:19px}.bottom{font-size:9px;bottom:7px;left:7px;right:7px}.legend{max-width:70%;line-height:1.6}.status{min-width:0}}
+  .touch-controls{display:none;position:fixed;left:12px;right:12px;bottom:calc(12px + env(safe-area-inset-bottom));z-index:15;justify-content:space-between;align-items:end;gap:10px;pointer-events:none}
+  .touch-controls>div{pointer-events:auto}.touch-caption{display:block;text-align:center;color:#b6b9d9;font-size:9px;font-weight:900;letter-spacing:.16em;margin-bottom:5px;text-shadow:0 2px 6px #000}
+  .tank-pad{display:grid;grid-template-columns:repeat(3,52px);grid-template-rows:repeat(2,52px);gap:4px}.tank-pad [data-tank-control="forward"]{grid-column:2}.tank-pad [data-tank-control="left"]{grid-column:1;grid-row:2}.tank-pad [data-tank-control="back"]{grid-column:2;grid-row:2}.tank-pad [data-tank-control="right"]{grid-column:3;grid-row:2}
+  .touch-controls button{min-width:52px;min-height:52px;border:1px solid #00f0ff88;background:#0b1539de;color:#eaffff;box-shadow:inset 0 0 15px #00f0ff21,0 3px 16px #0009;border-radius:8px;font-size:23px;font-weight:900;touch-action:none;user-select:none;-webkit-user-select:none}
+  .touch-controls button.held{background:#00f0ff45;border-color:var(--cyan);box-shadow:0 0 17px #00f0ff80}
+  .tank-aim{width:102px;height:102px;border:2px solid #ff2d9590;border-radius:50%;position:relative;margin:auto;background:radial-gradient(circle,#421a4bbd,#140c2ddf);box-shadow:inset 0 0 25px #ff2d9540,0 0 16px #ff2d9535;touch-action:none}
+  .tank-aim:before,.tank-aim:after{content:"";position:absolute;background:#ffafd04f}.tank-aim:before{width:1px;height:80%;left:50%;top:10%}.tank-aim:after{height:1px;width:80%;left:10%;top:50%}.tank-aim-knob{position:absolute;left:50%;top:50%;width:35px;height:35px;margin:-17.5px;border:2px solid #fff1e7;border-radius:50%;background:#ff2d95;box-shadow:0 0 15px #ff2d95;pointer-events:none}
+  .tank-actions{display:flex;gap:5px;margin-top:7px}.tank-actions button{font-size:10px;letter-spacing:.03em;min-width:0;width:61px;height:50px;min-height:50px}.tank-actions .tank-fire{background:#ff5b8edc;border-color:#ffc6d8;color:#1c0c21}.tank-actions .tank-dash{background:#a6e844dd;border-color:#e0ffb0;color:#172010}
+  .tank-pause{display:none;position:fixed;right:12px;top:67px;z-index:15;width:44px;height:40px;border:1px solid #ffffff66;border-radius:7px;background:#111129dc;color:#fff;font-size:21px;touch-action:manipulation}
+  .touch-hint{display:none}
+  @media(pointer:coarse),(max-width:700px){#game{touch-action:none}.touch-controls{display:flex}.tank-pause{display:block}.bottom{bottom:calc(156px + env(safe-area-inset-bottom));justify-content:flex-end}.legend{display:none}.status{font-size:9px;min-width:0}.panel{max-height:calc(100dvh - 30px);overflow:auto}.touch-hint{display:block;color:#b3eff1;font-size:11px;line-height:1.45;margin-top:13px}}
+  @media(max-width:380px){.tank-pad{grid-template-columns:repeat(3,46px);grid-template-rows:repeat(2,46px)}.touch-controls button{min-width:46px;min-height:46px}.tank-aim{width:90px;height:90px}.tank-actions button{width:55px;height:47px;min-height:47px}}
+  @media(max-height:520px) and (pointer:coarse){.touch-controls{bottom:calc(5px + env(safe-area-inset-bottom))}.bottom{bottom:auto;top:58px}.tank-pad{grid-template-columns:repeat(3,42px);grid-template-rows:repeat(2,42px)}.touch-controls button{min-width:42px;min-height:42px}.tank-aim{width:83px;height:83px}.tank-actions button{width:52px;height:40px;min-height:40px}}
+  @media(max-width:650px){.topbar{top:7px;gap:4px}.team{padding:7px 8px}.team .name{font-size:9px;letter-spacing:.07em}.score{min-width:100px}.score .brand{font-size:10px}.score .digits{font-size:19px}.bottom{font-size:9px;left:7px;right:7px}.legend{max-width:70%;line-height:1.6}.status{min-width:0}}
 </style>
 </head>
 <body>
@@ -35,7 +48,12 @@
   <div class="topbar"><div class="team player"><div class="name">ОРАКУЛ <span id="pHpText">100</span></div><div class="health"><span id="pHp"></span></div></div><div class="score"><div class="brand">NEON TANKS</div><div class="digits"><b id="pScore">0</b><i>:</i><b id="eScore">0</b></div></div><div class="team enemy"><div class="name"><span id="eHpText">100</span> ПАРАЛЛАКС</div><div class="health"><span id="eHp"></span></div></div></div>
   <div class="bottom"><div class="legend"><b>WASD / ←↑↓→</b> — движение　 <b>МЫШЬ</b> — прицел　 <b>ЛКМ / ПРОБЕЛ</b> — огонь<br><b>SHIFT</b> — рывок　 <b>P / ESC</b> — пауза　 <b>R</b> — новая игра</div><div id="status" class="status">УРОВЕНЬ 1/2 · ДО 3 ПОБЕД</div></div>
 </div>
-<div id="veil" class="veil"><div class="panel"><div class="eyebrow">VICE ARENA // 01 + TIDAL DOCKS // 02</div><div id="titleBlock"><h1>NEON<br><em>TANKS</em></h1><p>Победи в трёх раундах и открой затопленный порт — вторую арену с контейнерами, мелководьем и нефтяными пятнами.</p></div><h2 id="overlayTitle" class="hide"></h2><p id="overlayText" class="hide"></p><div id="diffWrap" class="difficulty"><button data-diff="easy">ЛЁГКИЙ</button><button data-diff="normal" class="active">СРЕДНИЙ</button><button data-diff="hard">СЛОЖНЫЙ</button></div><button id="startButton" class="primary">НАЧАТЬ ДУЭЛЬ</button><p id="hint" class="small">Совет: перехвати вражеский снаряд своим выстрелом.</p></div></div>
+<button class="tank-pause" id="tankPause" aria-label="Пауза">Ⅱ</button>
+<div class="touch-controls" id="tankTouchControls" aria-label="Управление танком на телефоне">
+  <div><span class="touch-caption">ДВИЖЕНИЕ</span><div class="tank-pad" role="group" aria-label="Движение и поворот"><button data-tank-control="forward" aria-label="Вперёд">▲</button><button data-tank-control="left" aria-label="Повернуть влево">◀</button><button data-tank-control="back" aria-label="Назад">▼</button><button data-tank-control="right" aria-label="Повернуть вправо">▶</button></div></div>
+  <div><span class="touch-caption">ПРИЦЕЛ</span><div class="tank-aim" id="tankAim" role="group" aria-label="Веди пальцем для прицеливания"><span class="tank-aim-knob" id="tankAimKnob"></span></div><div class="tank-actions"><button class="tank-fire" data-tank-control="fire" aria-label="Огонь">ОГОНЬ</button><button class="tank-dash" data-tank-control="dash" aria-label="Рывок">РЫВОК</button></div></div>
+</div>
+<div id="veil" class="veil"><div class="panel"><div class="eyebrow">VICE ARENA // 01 + TIDAL DOCKS // 02</div><div id="titleBlock"><h1>NEON<br><em>TANKS</em></h1><p>Победи в трёх раундах и открой затопленный порт — вторую арену с контейнерами, мелководьем и нефтяными пятнами.</p></div><h2 id="overlayTitle" class="hide"></h2><p id="overlayText" class="hide"></p><div id="diffWrap" class="difficulty"><button data-diff="easy">ЛЁГКИЙ</button><button data-diff="normal" class="active">СРЕДНИЙ</button><button data-diff="hard">СЛОЖНЫЙ</button></div><button id="startButton" class="primary">НАЧАТЬ ДУЭЛЬ</button><p id="hint" class="small">Совет: перехвати вражеский снаряд своим выстрелом.</p><div class="touch-hint">Слева — движение и поворот. Справа — прицел, огонь и рывок. Для удобства поверни телефон горизонтально.</div></div></div>
 <script>
 (()=>{'use strict';
 const W=1600,H=900,TAU=Math.PI*2,canvas=document.getElementById('game');let ctx=canvas.getContext('2d',{alpha:false});
@@ -43,7 +61,9 @@ const ui={veil:document.getElementById('veil'),titleBlock:document.getElementByI
 const C={pink:'#ff2d95',cyan:'#00f0ff',red:'#ff3648',orange:'#ff8a3d',lime:'#baff42',yellow:'#ffe866',white:'#fff6fc'};
 const clamp=(v,a,b)=>Math.max(a,Math.min(b,v)),lerp=(a,b,t)=>a+(b-a)*t,dist=(x,y,X,Y)=>Math.hypot(x-X,y-Y),rnd=(a,b)=>a+Math.random()*(b-a),angleDiff=(a,b)=>Math.atan2(Math.sin(b-a),Math.cos(b-a));
 let scale=1,ox=0,oy=0,dpr=1,renderQuality=1,qualityTime=0,qualityFrames=0,last=0,renderTarget=0,acc=0,mode='menu',difficulty='normal',level=0,round=1,scores=[0,0],roundTimer=0,hitFlash=0,shake=0,worldTime=0,pickupTimer=8,announcements=[],particles=[],rings=[],bullets=[],pickups=[],floorCanvas,arenaCanvas,trackCanvas,trackCtx;
-const keys=new Set(),mouse={x:W/2,y:H/2,down:false,seen:false};
+const keys=new Set(),touchKeys=new Set(),mouse={x:W/2,y:H/2,down:false,seen:false};
+const held=key=>keys.has(key)||touchKeys.has(key);
+let touchAim=null;
 const firstWalls=[
   {x:140,y:258,w:195,h:36},{x:299,y:294,w:36,h:145},{x:299,y:439,w:36,h:145},{x:140,y:584,w:195,h:36},
   {x:1265,y:258,w:195,h:36},{x:1265,y:294,w:36,h:145},{x:1265,y:439,w:36,h:145},{x:1265,y:584,w:195,h:36},
@@ -97,16 +117,42 @@ let lastUI='';function updateUI(){let bonus=player.shield>0?' · ЩИТ '+Math.c
 document.querySelectorAll('[data-diff]').forEach(b=>b.addEventListener('click',()=>{difficulty=b.dataset.diff;document.querySelectorAll('[data-diff]').forEach(x=>x.classList.toggle('active',x===b));}));
 ui.start.addEventListener('click',()=>{ui.start.blur();if(mode==='paused'){mode='playing';ui.veil.classList.add('hidden')}else if(mode==='betweenRounds'){round++;resetRound()}else if(mode==='levelClear'){setLevel(1);scores=[0,0];round=1;resetRound()}else newMatch()});
 function pause(){if(mode==='playing'){mode='paused';showOverlay('ПАУЗА','Переведи дыхание. Арена ждёт.','ПРОДОЛЖИТЬ','pause')}else if(mode==='paused'){mode='playing';ui.veil.classList.add('hidden')}}
+document.getElementById('tankPause').addEventListener('click',pause);
 function keyName(e){let map={KeyW:'w',KeyA:'a',KeyS:'s',KeyD:'d',KeyP:'p',KeyR:'r',ArrowUp:'arrowup',ArrowDown:'arrowdown',ArrowLeft:'arrowleft',ArrowRight:'arrowright',ShiftLeft:'shift',ShiftRight:'shift',Space:' ',Escape:'escape',Enter:'enter'};return map[e.code]||e.key.toLowerCase()}
-addEventListener('keydown',e=>{let k=keyName(e);if(['w','a','s','d','arrowup','arrowdown','arrowleft','arrowright',' ','shift','p','escape','r','enter'].includes(k))e.preventDefault();keys.add(k);if(e.repeat)return;if(k==='p'||k==='escape')pause();if(k==='r')newMatch();if(k==='enter'&&mode!=='playing')ui.start.click()});addEventListener('keyup',e=>keys.delete(keyName(e)));addEventListener('blur',()=>{keys.clear();mouse.down=false;if(mode==='playing')pause()});
-canvas.addEventListener('pointermove',e=>{let r=canvas.getBoundingClientRect(),px=(e.clientX-r.left)*dpr,py=(e.clientY-r.top)*dpr;mouse.x=(px-ox)/scale;mouse.y=(py-oy)/scale;mouse.seen=true});canvas.addEventListener('pointerdown',e=>{if(e.button===0){mouse.down=true;canvas.setPointerCapture(e.pointerId)}});canvas.addEventListener('pointerup',()=>mouse.down=false);canvas.addEventListener('contextmenu',e=>e.preventDefault());
+addEventListener('keydown',e=>{let k=keyName(e);if(['w','a','s','d','arrowup','arrowdown','arrowleft','arrowright',' ','shift','p','escape','r','enter'].includes(k))e.preventDefault();keys.add(k);if(e.repeat)return;if(k==='p'||k==='escape')pause();if(k==='r')newMatch();if(k==='enter'&&mode!=='playing')ui.start.click()});addEventListener('keyup',e=>keys.delete(keyName(e)));addEventListener('blur',()=>{keys.clear();touchKeys.clear();document.querySelectorAll('.touch-controls .held').forEach(button=>button.classList.remove('held'));mouse.down=false;if(mode==='playing')pause()});
+canvas.addEventListener('pointermove',e=>{if(e.pointerType==='mouse')touchAim=null;let r=canvas.getBoundingClientRect(),px=(e.clientX-r.left)*dpr,py=(e.clientY-r.top)*dpr;mouse.x=(px-ox)/scale;mouse.y=(py-oy)/scale;mouse.seen=true});canvas.addEventListener('pointerdown',e=>{if(e.button===0){mouse.down=true;canvas.setPointerCapture(e.pointerId)}});canvas.addEventListener('pointerup',()=>mouse.down=false);canvas.addEventListener('pointercancel',()=>mouse.down=false);canvas.addEventListener('contextmenu',e=>e.preventDefault());
+const controlKeys={forward:'w',back:'s',left:'a',right:'d',fire:' ',dash:'shift'};
+document.querySelectorAll('[data-tank-control]').forEach(button=>{
+  const key=controlKeys[button.dataset.tankControl];
+  const release=()=>{touchKeys.delete(key);button.classList.remove('held')};
+  button.addEventListener('pointerdown',e=>{e.preventDefault();button.setPointerCapture(e.pointerId);touchKeys.add(key);button.classList.add('held')});
+  button.addEventListener('pointerup',release);
+  button.addEventListener('pointercancel',release);
+  button.addEventListener('lostpointercapture',release);
+});
+const aimPad=document.getElementById('tankAim'),aimKnob=document.getElementById('tankAimKnob');
+let aimPointer=null;
+const moveAim=e=>{
+  const rect=aimPad.getBoundingClientRect(),radius=(rect.width-35)/2;
+  const dx=e.clientX-rect.left-rect.width/2,dy=e.clientY-rect.top-rect.height/2;
+  const distance=Math.hypot(dx,dy),scale=distance>radius?radius/distance:1;
+  aimKnob.style.transform=`translate(${Math.round(dx*scale)}px,${Math.round(dy*scale)}px)`;
+  if(distance>7){touchAim={x:dx/distance,y:dy/distance};mouse.seen=true}
+};
+aimPad.addEventListener('pointerdown',e=>{e.preventDefault();aimPointer=e.pointerId;aimPad.setPointerCapture(e.pointerId);moveAim(e)});
+aimPad.addEventListener('pointermove',e=>{if(e.pointerId===aimPointer)moveAim(e)});
+const releaseAim=e=>{if(e.pointerId!==aimPointer)return;aimPointer=null;aimKnob.style.transform='translate(0,0)'};
+aimPad.addEventListener('pointerup',releaseAim);
+aimPad.addEventListener('pointercancel',releaseAim);
+aimPad.addEventListener('lostpointercapture',releaseAim);
+
 function collideCircleRect(x,y,r,w){let qx=clamp(x,w.x,w.x+w.w),qy=clamp(y,w.y,w.y+w.h),dx=x-qx,dy=y-qy,d=Math.hypot(dx,dy);if(d>=r)return null;if(d>.001)return {nx:dx/d,ny:dy/d,depth:r-d};let left=x-w.x,right=w.x+w.w-x,top=y-w.y,bottom=w.y+w.h-y,m=Math.min(left,right,top,bottom);return m===left?{nx:-1,ny:0,depth:r+left}:m===right?{nx:1,ny:0,depth:r+right}:m===top?{nx:0,ny:-1,depth:r+top}:{nx:0,ny:1,depth:r+bottom}}
 function moveTank(t,dt){let dx=t.vx*dt,dy=t.vy*dt;for(let axis=0;axis<2;axis++){if(axis===0)t.x+=dx;else t.y+=dy;t.x=clamp(t.x,bounds.l+30,bounds.r-30);t.y=clamp(t.y,bounds.t+30,bounds.b-30);for(const w of walls){let h=collideCircleRect(t.x,t.y,30,w);if(h){t.x+=h.nx*h.depth;t.y+=h.ny*h.depth;let v=t.vx*h.nx+t.vy*h.ny;if(v<0){t.vx-=v*h.nx;t.vy-=v*h.ny}}}}}
 function resolveTanks(){let d=dist(player.x,player.y,enemy.x,enemy.y);if(d<61&&d>.001){let nx=(enemy.x-player.x)/d,ny=(enemy.y-player.y)/d,s=(61-d)/2;player.x-=nx*s;player.y-=ny*s;enemy.x+=nx*s;enemy.y+=ny*s;player.vx-=nx*25;enemy.vx+=nx*25}}
 function tickTank(t,dt){t.px=t.x;t.py=t.y;t.pa=t.angle;t.pturret=t.turret;t.reload=Math.max(0,t.reload-dt);t.dash=Math.max(0,t.dash-dt);t.dashGlow=Math.max(0,t.dashGlow-dt);t.rapid=Math.max(0,t.rapid-dt);t.shield=Math.max(0,t.shield-dt);t.recoil=Math.max(0,t.recoil-dt*30);t.anim+=dt*(5+Math.hypot(t.vx,t.vy)*.035);moveTank(t,dt);if(Math.hypot(t.vx,t.vy)>42){t.tracks-=dt;if(t.tracks<=0){let s=Math.sin(t.angle),c=Math.cos(t.angle);for(let side of [-1,1])stampTrack(t.x-s*side*22,t.y+c*side*22,t.angle);t.tracks=.07}}}
 function terrainAt(x,y){if(level!==1)return null;for(const z of portZones){let dx=(x-z.x)/z.rx,dy=(y-z.y)/z.ry;if(dx*dx+dy*dy<1)return z.kind}return null}
 function drive(t,throttle,turn,dt,mult=1){let ca=Math.cos(t.angle),sa=Math.sin(t.angle),forward=t.vx*ca+t.vy*sa,lateral=-t.vx*sa+t.vy*ca,terrain=terrainAt(t.x,t.y),pace=terrain==='water'?.74:1;forward+=throttle*430*mult*pace*dt;forward*=Math.exp(-(terrain==='water'?3.2:2.8)*dt);lateral*=Math.exp(-(terrain==='oil'?2.2:7)*dt);forward=clamp(forward,-145*mult*pace,240*mult*pace);t.vx=ca*forward-sa*lateral;t.vy=sa*forward+ca*lateral;t.angle+=turn*(2.75+Math.min(Math.abs(forward)/260,.55))*(terrain==='water'?.86:1)*dt}
-function updatePlayer(dt){let throttle=(keys.has('w')||keys.has('arrowup')?1:0)-(keys.has('s')||keys.has('arrowdown')?1:0),turn=(keys.has('d')||keys.has('arrowright')?1:0)-(keys.has('a')||keys.has('arrowleft')?1:0);drive(player,throttle,turn,dt);if((keys.has('shift'))&&player.dash<=0&&(throttle||Math.hypot(player.vx,player.vy)>25)){let sign=throttle<0?-1:1;player.vx+=Math.cos(player.angle)*370*sign;player.vy+=Math.sin(player.angle)*370*sign;player.dash=4.4;player.dashGlow=.35;burst(player.x,player.y,C.orange,13,110)}let aim=Math.atan2(mouse.y-player.y,mouse.x-player.x);if(!mouse.seen)aim=0;player.turret+=angleDiff(player.turret,aim)*Math.min(1,dt*14);if(mouse.down||keys.has(' '))fire(player)}
+function updatePlayer(dt){let throttle=(held('w')||held('arrowup')?1:0)-(held('s')||held('arrowdown')?1:0),turn=(held('d')||held('arrowright')?1:0)-(held('a')||held('arrowleft')?1:0);drive(player,throttle,turn,dt);if((held('shift'))&&player.dash<=0&&(throttle||Math.hypot(player.vx,player.vy)>25)){let sign=throttle<0?-1:1;player.vx+=Math.cos(player.angle)*370*sign;player.vy+=Math.sin(player.angle)*370*sign;player.dash=4.4;player.dashGlow=.35;burst(player.x,player.y,C.orange,13,110)}if(touchAim){mouse.x=player.x+touchAim.x*600;mouse.y=player.y+touchAim.y*600}let aim=Math.atan2(mouse.y-player.y,mouse.x-player.x);if(!mouse.seen)aim=0;player.turret+=angleDiff(player.turret,aim)*Math.min(1,dt*14);if(mouse.down||held(' '))fire(player)}
 function cellFor(x,y){return {x:clamp(Math.floor(x/50),1,30),y:clamp(Math.floor(y/50),1,16)}}
 const gridBlocked=new Uint8Array(576);function rebuildGrid(){for(let y=0;y<18;y++)for(let x=0;x<32;x++){let px=x*50+25,py=y*50+25;gridBlocked[y*32+x]=(px<bounds.l+24||px>bounds.r-24||py<bounds.t+24||py>bounds.b-24||walls.some(w=>px>w.x-24&&px<w.x+w.w+24&&py>w.y-24&&py<w.y+w.h+24))?1:0}}rebuildGrid();
 function blockedCell(x,y){return gridBlocked[y*32+x]===1}

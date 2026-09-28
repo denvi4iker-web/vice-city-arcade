@@ -1,0 +1,15 @@
+.fullscreen-toggle{position:absolute;right:53px;top:11px;z-index:6;display:grid;place-items:center;width:34px;height:34px;padding:0;border:1px solid #ffffff3b;background:#14131bbd;color:#f3e3ec;font-size:22px;line-height:1;border-radius:4px}
+.fullscreen-toggle:hover,.fullscreen-toggle:focus-visible{border-color:var(--lime);color:var(--lime);outline:none}
+.modal .modal-box>h3{margin-right:92px}
+.modal.is-expanded{padding:0}
+.modal.is-expanded .modal-box,.modal-box:fullscreen{position:fixed!important;inset:0!important;width:100vw!important;height:100dvh!important;max-width:none!important;max-height:none!important;margin:0!important;border:0!important;border-radius:0!important;box-shadow:none!important;overflow-y:auto!important;overscroll-behavior:contain;padding:calc(14px + env(safe-area-inset-top)) calc(16px + env(safe-area-inset-right)) calc(14px + env(safe-area-inset-bottom)) calc(16px + env(safe-area-inset-left))!important;background:#15131d!important;-webkit-overflow-scrolling:touch}
+.modal.is-expanded .fullscreen-toggle,.modal.is-expanded .close{position:fixed;top:calc(9px + env(safe-area-inset-top));z-index:30;background:#15131dea}
+.modal.is-expanded .fullscreen-toggle{right:calc(54px + env(safe-area-inset-right))}
+.modal.is-expanded .close{right:calc(12px + env(safe-area-inset-right));width:34px;height:34px}
+.modal.is-expanded .modal-box>h3,.modal-box:fullscreen>h3{margin-right:95px}
+.modal.is-expanded .tank-game,.modal-box:fullscreen .tank-game{flex:1;min-height:calc(100dvh - 110px)}
+.modal.is-expanded .race-track{width:min(100%,calc((100dvh - 280px)*620/700));max-width:750px}
+.modal.is-expanded .chase-stage{max-height:65dvh;max-width:550px}
+.modal.is-expanded .quiz-game{width:min(760px,100%);margin-inline:auto}
+.modal.is-expanded .duo-stage,.modal.is-expanded .sun-stage,.modal.is-expanded .warehouse-stage{height:min(67dvh,850px);max-height:none}
+@media(max-width:760px){.fullscreen-toggle{top:9px;right:48px;width:36px;height:36px}.modal.is-expanded .modal-box{padding:calc(8px + env(safe-area-inset-top)) calc(9px + env(safe-area-inset-right)) calc(9px + env(safe-area-inset-bottom)) calc(9px + env(safe-area-inset-left))!important}.modal.is-expanded .race-track{width:min(100%,calc((100dvh - 245px)*620/700));min-width:0}.modal.is-expanded .duo-stage,.modal.is-expanded .sun-stage,.modal.is-expanded .warehouse-stage{height:min(55dvh,650px);min-height:260px}.modal.is-expanded .tank-game{min-height:calc(100dvh - 80px)}}
