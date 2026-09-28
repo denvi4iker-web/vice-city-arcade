@@ -1,0 +1,4 @@
+# Local planning notes and source research are not part of the public site.
+*.md
+news-sources.json
+.DS_Store
