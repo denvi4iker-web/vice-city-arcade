@@ -21,7 +21,8 @@
   button.addEventListener('click', async () => {
     if (modal.classList.contains('is-expanded')) { await leave(); return; }
     setExpanded(true);
-    if (box.requestFullscreen) {
+    const mobileViewport = window.matchMedia('(pointer:coarse), (max-width:760px)').matches;
+    if (box.requestFullscreen && !mobileViewport) {
       try { await box.requestFullscreen(); nativeFullscreen = true; } catch (_) { /* The CSS viewport mode works on browsers without native fullscreen. */ }
     }
   });
