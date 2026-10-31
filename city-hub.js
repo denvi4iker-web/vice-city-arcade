@@ -7,7 +7,8 @@
   const tracks=[
     {station:'OCEAN FM',frequency:'94.6 FM',title:'Ocean Afterglow',description:'Тёплый синтвейв для поездки вдоль океана.',file:'audio/ocean-afterglow.wav'},
     {station:'NIGHT DRIVE',frequency:'107.7 FM',title:'Midnight Run',description:'Пульсирующий бас и ночной ритм для следующего заезда.',file:'audio/midnight-run.wav'},
-    {station:'LIGHTHOUSE',frequency:'88.3 FM',title:'Lighthouse Breeze',description:'Мягкие синтезаторы и морская атмосфера у маяка.',file:'audio/lighthouse-breeze.wav'}
+    {station:'LIGHTHOUSE',frequency:'88.3 FM',title:'Lighthouse Breeze',description:'Мягкие синтезаторы и морская атмосфера у маяка.',file:'audio/lighthouse-breeze.wav'},
+    {station:'VICE CITY SOUND',frequency:'101.3 FM',title:'Flower In A Hurricane',description:'Justice feat. Tame Impala, SZA & King Gizzard & The Lizard Wizard · GTA VI.',file:'audio/flower-in-a-hurricane.mp3'}
   ];
   let station=0,volume=.45,muted=false,duck=true,wantsPlay=false,inView=true,inGame=false,request=0,started=false,loading=false,problem='';
   try{const saved=JSON.parse(localStorage.getItem('viceRadio')||'null');if(saved){station=Number.isInteger(saved.station)&&saved.station>=0&&saved.station<tracks.length?saved.station:0;volume=Number.isFinite(saved.volume)?Math.max(0,Math.min(1,saved.volume)):.45;muted=!!saved.muted;duck=saved.duck!==false}}catch{}
