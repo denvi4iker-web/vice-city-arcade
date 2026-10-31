@@ -5,9 +5,6 @@
   filters.forEach(b=>b.addEventListener('click',()=>{let count=0;cards.forEach(c=>{c.hidden=b.dataset.newsFilter!=='all'&&c.dataset.news!==b.dataset.newsFilter;if(!c.hidden)count++});filters.forEach(f=>{const on=f===b;f.classList.toggle('active',on);f.setAttribute('aria-pressed',String(on))});$('newsCount').textContent=`${count} ${count===1?'МАТЕРИАЛ':count<5?'МАТЕРИАЛА':'МАТЕРИАЛОВ'}`}));
   const audio=$('radioAudio');if(!audio||typeof audio.play!=='function')return;
   const tracks=[
-    {station:'OCEAN FM',frequency:'94.6 FM',title:'Ocean Afterglow',description:'Тёплый синтвейв для поездки вдоль океана.',file:'audio/ocean-afterglow.wav'},
-    {station:'NIGHT DRIVE',frequency:'107.7 FM',title:'Midnight Run',description:'Пульсирующий бас и ночной ритм для следующего заезда.',file:'audio/midnight-run.wav'},
-    {station:'LIGHTHOUSE',frequency:'88.3 FM',title:'Lighthouse Breeze',description:'Мягкие синтезаторы и морская атмосфера у маяка.',file:'audio/lighthouse-breeze.wav'},
     {station:'VICE CITY SOUND',frequency:'101.3 FM',title:'Flower In A Hurricane',description:'Justice feat. Tame Impala, SZA & King Gizzard & The Lizard Wizard · GTA VI.',file:'audio/flower-in-a-hurricane.mp3'}
   ];
   let station=0,volume=.45,muted=false,duck=true,wantsPlay=false,inView=true,inGame=false,request=0,started=false,loading=false,problem='';
@@ -24,7 +21,7 @@
   function pause(){wantsPlay=false;loading=false;problem='';request++;audio.pause();ui();renderStatus()}
   const toggle=()=>audio.paused?play():pause();
   $('radioPlay').addEventListener('click',toggle);$('radioMiniPlay').addEventListener('click',toggle);
-  $('radioNext').addEventListener('click',()=>choose(station+1));$('radioPrev').addEventListener('click',()=>choose(station-1));$('radioMiniNext').addEventListener('click',()=>choose(station+1));buttons.forEach(b=>b.addEventListener('click',()=>{const index=Number(b.dataset.station);if(index!==station)choose(index)}));
+  buttons.forEach(b=>b.addEventListener('click',()=>{const index=Number(b.dataset.station);if(index!==station)choose(index)}));
   $('radioMute').addEventListener('click',()=>{muted=!muted;applyVolume();save();renderStatus()});
   $('radioVolume').addEventListener('input',e=>{volume=Math.max(0,Math.min(1,Number(e.target.value)/100));if(volume>0)muted=false;applyVolume();save()});
   $('radioDuck').addEventListener('change',e=>{duck=e.target.checked;applyVolume();save()});
